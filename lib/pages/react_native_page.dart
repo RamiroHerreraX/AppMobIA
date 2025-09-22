@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'framework_page.dart';
 
-
 class ReactNativePage extends StatelessWidget {
   const ReactNativePage({super.key});
 
@@ -34,6 +33,7 @@ class ReactNativePage extends StatelessWidget {
       stats: {"85%": "Código reusable", "300k+": "Apps", "10M+": "Devs"},
       justification:
           "Ideal si ya tienes equipo con experiencia en JavaScript y quieres desarrollar multiplataforma con gran ecosistema.",
+      image: "assets/images/ReactNative.jpg", // ← Aquí agregamos la imagen
     );
   }
 }

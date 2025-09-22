@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Importar para SystemChrome
+import 'package:flutter/services.dart';
 
 class FlutterPage extends StatefulWidget {
   const FlutterPage({super.key});
@@ -12,10 +12,9 @@ class _FlutterPageState extends State<FlutterPage> {
   @override
   void initState() {
     super.initState();
-    // Configurar la interfaz del sistema para esta pantalla
     SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual, 
-      overlays: [SystemUiOverlay.top] // Mostrar solo la barra de estado
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top],
     );
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -25,10 +24,9 @@ class _FlutterPageState extends State<FlutterPage> {
 
   @override
   void dispose() {
-    // Restaurar la interfaz del sistema al salir de la pantalla
     SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual, 
-      overlays: SystemUiOverlay.values
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
     );
     super.dispose();
   }
@@ -36,7 +34,7 @@ class _FlutterPageState extends State<FlutterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50], // Fondo ligeramente gris para mejor contraste
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: const Text(
           "Flutter",
@@ -60,13 +58,13 @@ class _FlutterPageState extends State<FlutterPage> {
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: SafeArea(
-          bottom: true, // Asegurar que el contenido no se superponga con la barra de navegación
+          bottom: true,
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header con icono y título
+                // Header con imagen
                 Center(
                   child: Container(
                     width: 100,
@@ -75,15 +73,23 @@ class _FlutterPageState extends State<FlutterPage> {
                       color: const Color(0xFF02569B).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    child: const Icon(
-                      Icons.flutter_dash,
-                      size: 60,
-                      color: Color(0xFF02569B),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.asset(
+                        'assets/images/Flutter.jpg',
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(
+                            Icons.flutter_dash,
+                            size: 60,
+                            color: Color(0xFF02569B),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 20),
-                
                 const Center(
                   child: Text(
                     "Flutter Framework",
@@ -93,9 +99,7 @@ class _FlutterPageState extends State<FlutterPage> {
                     ),
                   ),
                 ),
-                
                 const SizedBox(height: 8),
-                
                 const Center(
                   child: Text(
                     "Desarrollado por Google",
@@ -105,15 +109,9 @@ class _FlutterPageState extends State<FlutterPage> {
                     ),
                   ),
                 ),
-                
                 const SizedBox(height: 24),
-                
-                // Información básica - Lenguajes como lista
                 _buildLanguageCard(["Dart"], const Color(0xFF02569B)),
-                
                 const SizedBox(height: 16),
-                
-                // Rating
                 const Text(
                   "Valoración:",
                   style: TextStyle(
@@ -121,29 +119,22 @@ class _FlutterPageState extends State<FlutterPage> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                
                 const SizedBox(height: 8),
-                
                 Row(
-                  children: [
+                  children: const [
                     Icon(Icons.star, color: Colors.amber, size: 20),
                     Icon(Icons.star, color: Colors.amber, size: 20),
                     Icon(Icons.star, color: Colors.amber, size: 20),
                     Icon(Icons.star, color: Colors.amber, size: 20),
                     Icon(Icons.star_half, color: Colors.amber, size: 20),
-                    const SizedBox(width: 10),
-                    const Text(
+                    SizedBox(width: 10),
+                    Text(
                       "4.8/5",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
-                
                 const SizedBox(height: 24),
-                
-                // Características
                 const Text(
                   "Características principales:",
                   style: TextStyle(
@@ -151,9 +142,7 @@ class _FlutterPageState extends State<FlutterPage> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                
                 const SizedBox(height: 12),
-                
                 Wrap(
                   spacing: 12,
                   runSpacing: 12,
@@ -165,10 +154,7 @@ class _FlutterPageState extends State<FlutterPage> {
                     _buildFeatureChip("Comunidad activa", Icons.people),
                   ],
                 ),
-                
                 const SizedBox(height: 24),
-                
-                // Ventajas
                 _buildProsConsCard(
                   "Ventajas",
                   Icons.check_circle,
@@ -182,10 +168,7 @@ class _FlutterPageState extends State<FlutterPage> {
                     "Código nativo sin puentes JavaScript",
                   ],
                 ),
-                
                 const SizedBox(height: 16),
-                
-                // Desventajas
                 _buildProsConsCard(
                   "Desventajas",
                   Icons.cancel,
@@ -197,10 +180,7 @@ class _FlutterPageState extends State<FlutterPage> {
                     "Ecosistema menos maduro que React Native en algunos aspectos",
                   ],
                 ),
-                
                 const SizedBox(height: 24),
-                
-                // Aplicaciones destacadas
                 const Text(
                   "Aplicaciones destacadas:",
                   style: TextStyle(
@@ -208,9 +188,7 @@ class _FlutterPageState extends State<FlutterPage> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                
                 const SizedBox(height: 12),
-                
                 SizedBox(
                   height: 120,
                   child: ListView(
@@ -223,10 +201,7 @@ class _FlutterPageState extends State<FlutterPage> {
                     ],
                   ),
                 ),
-                
                 const SizedBox(height: 24),
-                
-                // Estadísticas
                 const Text(
                   "Estadísticas:",
                   style: TextStyle(
@@ -234,9 +209,7 @@ class _FlutterPageState extends State<FlutterPage> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                
                 const SizedBox(height: 12),
-                
                 Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
@@ -255,10 +228,7 @@ class _FlutterPageState extends State<FlutterPage> {
                     ),
                   ),
                 ),
-                
                 const SizedBox(height: 24),
-                
-                // Justificación
                 Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
@@ -286,17 +256,13 @@ class _FlutterPageState extends State<FlutterPage> {
                         const SizedBox(height: 8),
                         const Text(
                           "Ideal cuando se busca desarrollo rápido y multiplataforma con excelente rendimiento visual. Perfecto para startups que necesitan lanzar productos rápidamente en múltiples plataformas con un equipo pequeño.",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black87,
-                          ),
+                          style: TextStyle(fontSize: 14, color: Colors.black87),
                         ),
                       ],
                     ),
                   ),
                 ),
-                
-                const SizedBox(height: 32), // Espacio final aumentado para evitar superposición
+                const SizedBox(height: 32),
               ],
             ),
           ),
@@ -305,7 +271,6 @@ class _FlutterPageState extends State<FlutterPage> {
     );
   }
 
-  // Nuevo widget para mostrar lenguajes como lista
   Widget _buildLanguageCard(List<String> languages, Color color) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -326,21 +291,14 @@ class _FlutterPageState extends State<FlutterPage> {
                 children: [
                   const Text(
                     "Lenguaje(s):",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 8),
-                  // Mostrar cada lenguaje en una línea separada
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: languages.map((language) => 
-                      Text(
-                        "• $language",
-                        style: const TextStyle(fontSize: 14),
-                      )
-                    ).toList(),
+                    children: languages
+                        .map((language) => Text("• $language", style: const TextStyle(fontSize: 14)))
+                        .toList(),
                   ),
                 ],
               ),
@@ -356,10 +314,7 @@ class _FlutterPageState extends State<FlutterPage> {
       avatar: Icon(icon, size: 18, color: const Color(0xFF02569B)),
       label: Text(text),
       backgroundColor: const Color(0xFF02569B).withOpacity(0.1),
-      labelStyle: const TextStyle(
-        fontSize: 14,
-        color: Colors.black87,
-      ),
+      labelStyle: const TextStyle(fontSize: 14, color: Colors.black87),
     );
   }
 
@@ -379,28 +334,18 @@ class _FlutterPageState extends State<FlutterPage> {
               children: [
                 Icon(icon, color: color),
                 const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: color,
-                  ),
-                ),
+                Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: color)),
               ],
             ),
             const SizedBox(height: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: items.map((item) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: Text(
-                  "• $item",
-                  style: const TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              )).toList(),
+              children: items
+                  .map((item) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        child: Text("• $item", style: const TextStyle(fontSize: 14)),
+                      ))
+                  .toList(),
             ),
           ],
         ),
@@ -435,10 +380,7 @@ class _FlutterPageState extends State<FlutterPage> {
           const SizedBox(height: 8),
           Text(
             name,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -462,10 +404,7 @@ class _FlutterPageState extends State<FlutterPage> {
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 12,
-            color: Colors.grey,
-          ),
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
         ),
       ],
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'framework_page.dart';
 
-
 class IonicPage extends StatelessWidget {
   const IonicPage({super.key});
 
@@ -31,6 +30,7 @@ class IonicPage extends StatelessWidget {
       stats: {"70%": "Código reusable", "50k+": "Apps", "5M+": "Devs"},
       justification:
           "Ideal para equipos con experiencia web que quieren dar el salto a móvil con un stack conocido.",
+      image: "assets/images/Ionic.jpg", // ← Aquí agregamos la imagen
     );
   }
 }

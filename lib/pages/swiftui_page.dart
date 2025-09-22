@@ -10,7 +10,7 @@ class SwiftUIPage extends StatelessWidget {
       title: "SwiftUI",
       subtitle: "Desarrollado por Apple",
       color: const Color(0xFFFA734E),
-      languages: ["Swift"],
+      languages: ["Swift"], 
       rating: "4.6/5",
       features: [
         {"label": "UI declarativa", "icon": Icons.view_quilt},
@@ -30,6 +30,7 @@ class SwiftUIPage extends StatelessWidget {
       stats: {"100%": "Código nativo", "200k+": "Apps", "3M+": "Devs"},
       justification:
           "Recomendado si tu prioridad es desarrollar para el ecosistema Apple con soporte oficial.",
+      image: "assets/images/SwiftUI.jpg", // ← Agregamos la imagen
     );
   }
 }

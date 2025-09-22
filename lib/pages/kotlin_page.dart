@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'framework_page.dart';
 
-
 class KotlinPage extends StatelessWidget {
   const KotlinPage({super.key});
 
@@ -31,6 +30,7 @@ class KotlinPage extends StatelessWidget {
       stats: {"60%": "Código reusable", "10k+": "Apps", "500k+": "Devs"},
       justification:
           "Recomendado si buscas rendimiento nativo y ya trabajas con Kotlin/Java en tus proyectos.",
+      image: "assets/images/Kotlin.jpg", // ← Agregamos la imagen aquí
     );
   }
 }

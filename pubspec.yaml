@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  introduction_screen: ^3.1.12  # 👈 Agregada para los slides de bienvenida
+  introduction_screen: ^3.1.12
 
 dev_dependencies:
   flutter_test:
@@ -21,6 +21,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # Aquí puedes agregar imágenes si decides usarlas en los slides
-  # assets:
-  #   - assets/images/
+  assets:
+    - assets/images/

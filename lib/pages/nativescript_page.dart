@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'framework_page.dart';
 
-
 class NativeScriptPage extends StatelessWidget {
   const NativeScriptPage({super.key});
 
@@ -31,6 +30,7 @@ class NativeScriptPage extends StatelessWidget {
       stats: {"75%": "Código reusable", "20k+": "Apps", "150k+": "Devs"},
       justification:
           "Ideal si quieres usar JS/TS con acceso directo a APIs nativas sin necesidad de puentes.",
+      image: "assets/images/NativeScript.jpg", // ← Agregamos la imagen aquí
     );
   }
 }

@@ -5,7 +5,7 @@ class FrameworkPage extends StatefulWidget {
   final String title;
   final String subtitle;
   final Color color;
-  final List<String> languages; // Cambiado a lista de lenguajes
+  final List<String> languages; // Lista de lenguajes
   final String rating;
   final List<Map<String, dynamic>> features;
   final List<String> pros;
@@ -13,12 +13,13 @@ class FrameworkPage extends StatefulWidget {
   final List<String> apps;
   final Map<String, String> stats;
   final String justification;
+  final String? image; // Nueva propiedad opcional para imagen
 
   const FrameworkPage({
     required this.title,
     required this.subtitle,
     required this.color,
-    required this.languages, // Cambiado a lista de lenguajes
+    required this.languages,
     required this.rating,
     required this.features,
     required this.pros,
@@ -26,6 +27,7 @@ class FrameworkPage extends StatefulWidget {
     required this.apps,
     required this.stats,
     required this.justification,
+    this.image,
     super.key,
   });
 
@@ -39,8 +41,8 @@ class _FrameworkPageState extends State<FrameworkPage> {
     super.initState();
     // Configurar la interfaz del sistema para esta pantalla
     SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual, 
-      overlays: [SystemUiOverlay.top] // Mostrar solo la barra de estado
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top],
     );
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -52,8 +54,8 @@ class _FrameworkPageState extends State<FrameworkPage> {
   void dispose() {
     // Restaurar la interfaz del sistema al salir de la pantalla
     SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual, 
-      overlays: SystemUiOverlay.values
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
     );
     super.dispose();
   }
@@ -61,7 +63,7 @@ class _FrameworkPageState extends State<FrameworkPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50], // Fondo ligeramente gris para mejor contraste
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(
           widget.title,
@@ -85,13 +87,13 @@ class _FrameworkPageState extends State<FrameworkPage> {
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: SafeArea(
-          bottom: true, // Asegurar que el contenido no se superponga con la barra de navegación
+          bottom: true,
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header
+                // Header: Imagen o Icono
                 Center(
                   child: Container(
                     width: 100,
@@ -100,7 +102,19 @@ class _FrameworkPageState extends State<FrameworkPage> {
                       color: widget.color.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    child: Icon(Icons.apps, size: 60, color: widget.color),
+                    child: widget.image != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset(
+                              widget.image!,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(Icons.developer_mode,
+                                    size: 60, color: widget.color);
+                              },
+                            ),
+                          )
+                        : Icon(Icons.apps, size: 60, color: widget.color),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -108,7 +122,8 @@ class _FrameworkPageState extends State<FrameworkPage> {
                 Center(
                   child: Text(
                     "${widget.title} Framework",
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w600),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -120,13 +135,14 @@ class _FrameworkPageState extends State<FrameworkPage> {
                 ),
                 const SizedBox(height: 24),
 
-                // Lenguaje(s) - Ahora soporta múltiples lenguajes
+                // Lenguajes
                 _buildLanguageCard(widget.languages, widget.color),
                 const SizedBox(height: 16),
 
                 // Valoración
                 const Text("Valoración:",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 8),
                 Row(
                   children: [
@@ -144,41 +160,49 @@ class _FrameworkPageState extends State<FrameworkPage> {
 
                 // Características
                 const Text("Características principales:",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 12),
                 Wrap(
                   spacing: 12,
                   runSpacing: 12,
                   children: widget.features
-                      .map((f) => _buildFeatureChip(f["label"], f["icon"], widget.color))
+                      .map((f) =>
+                          _buildFeatureChip(f["label"], f["icon"], widget.color))
                       .toList(),
                 ),
                 const SizedBox(height: 24),
 
                 // Ventajas
-                _buildProsConsCard("Ventajas", Icons.check_circle, Colors.green, widget.pros),
+                _buildProsConsCard(
+                    "Ventajas", Icons.check_circle, Colors.green, widget.pros),
                 const SizedBox(height: 16),
 
                 // Desventajas
-                _buildProsConsCard("Desventajas", Icons.cancel, Colors.red, widget.cons),
+                _buildProsConsCard(
+                    "Desventajas", Icons.cancel, Colors.red, widget.cons),
                 const SizedBox(height: 24),
 
                 // Apps destacadas
                 const Text("Aplicaciones destacadas:",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 12),
                 SizedBox(
                   height: 120,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: widget.apps.map((a) => _buildAppExample(a, widget.color)).toList(),
+                    children: widget.apps
+                        .map((a) => _buildAppExample(a, widget.color))
+                        .toList(),
                   ),
                 ),
                 const SizedBox(height: 24),
 
                 // Estadísticas
                 const Text("Estadísticas:",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 12),
                 Card(
                   shape: RoundedRectangleBorder(
@@ -191,9 +215,8 @@ class _FrameworkPageState extends State<FrameworkPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: widget.stats.entries
-                          .map((s) => Expanded(
-                                child: _buildStatistic(s.value, s.key, widget.color),
-                              ))
+                          .map((s) =>
+                              Expanded(child: _buildStatistic(s.value, s.key, widget.color)))
                           .toList(),
                     ),
                   ),
@@ -229,7 +252,7 @@ class _FrameworkPageState extends State<FrameworkPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 32), // Espacio final aumentado
+                const SizedBox(height: 32),
               ],
             ),
           ),
@@ -238,7 +261,6 @@ class _FrameworkPageState extends State<FrameworkPage> {
     );
   }
 
-  // Nuevo widget para mostrar múltiples lenguajes
   Widget _buildLanguageCard(List<String> languages, Color color) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -265,15 +287,12 @@ class _FrameworkPageState extends State<FrameworkPage> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  // Mostrar cada lenguaje en una línea separada
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: languages.map((language) => 
-                      Text(
-                        "• $language",
-                        style: const TextStyle(fontSize: 14),
-                      )
-                    ).toList(),
+                    children: languages
+                        .map((language) => Text("• $language",
+                            style: const TextStyle(fontSize: 14)))
+                        .toList(),
                   ),
                 ],
               ),

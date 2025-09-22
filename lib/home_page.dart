@@ -29,13 +29,48 @@ class _HomePageState extends State<HomePage> {
   }
 
   final List<Map<String, String>> frameworks = const [
-    {"name": "Flutter", "subtitle": "Lenguaje: Dart", "color": "0xFF02569B"},
-    {"name": "React Native", "subtitle": "Lenguaje: JavaScript / TypeScript", "color": "0xFF61DAFB"},
-    {"name": "Ionic", "subtitle": "Lenguaje: JS/TS + HTML/CSS", "color": "0xFF3880FF"},
-    {"name": "Kotlin Multiplatform", "subtitle": "Lenguaje: Kotlin", "color": "0xFF7F52FF"},
-    {"name": "NativeScript", "subtitle": "Lenguaje: JavaScript / TypeScript", "color": "0xFF65ADF1"},
-    {"name": "Xamarin", "subtitle": "Lenguaje: C#", "color": "0xFF3498DB"},
-    {"name": "SwiftUI", "subtitle": "Lenguaje: Swift", "color": "0xFFFA734E"},
+    {
+      "name": "Flutter",
+      "subtitle": "Lenguaje: Dart",
+      "color": "0xFF02569B",
+      "image": "assets/images/Flutter.jpg"
+    },
+    {
+      "name": "React Native",
+      "subtitle": "Lenguaje: JavaScript / TypeScript",
+      "color": "0xFF61DAFB",
+      "image": "assets/images/ReactNative.jpg"
+    },
+    {
+      "name": "Ionic",
+      "subtitle": "Lenguaje: JS/TS + HTML/CSS",
+      "color": "0xFF3880FF",
+      "image": "assets/images/Ionic.jpg"
+    },
+    {
+      "name": "Kotlin Multiplatform",
+      "subtitle": "Lenguaje: Kotlin",
+      "color": "0xFF7F52FF",
+      "image": "assets/images/Kotlin.jpg"
+    },
+    {
+      "name": "NativeScript",
+      "subtitle": "Lenguaje: JavaScript / TypeScript",
+      "color": "0xFF65ADF1",
+      "image": "assets/images/NativeScript.jpg"
+    },
+    {
+      "name": "Xamarin",
+      "subtitle": "Lenguaje: C#",
+      "color": "0xFF3498DB",
+      "image": "assets/images/Xamarin.jpg"
+    },
+    {
+      "name": "SwiftUI",
+      "subtitle": "Lenguaje: Swift",
+      "color": "0xFFFA734E",
+      "image": "assets/images/SwiftUI.jpg"
+    },
   ];
 
   final List<Map<String, String>> tableData = [
@@ -61,7 +96,7 @@ class _HomePageState extends State<HomePage> {
       "subtitle": "Ventajas técnicas",
       "content": "Flutter utiliza su propio motor de renderizado (Skia), lo que garantiza:\n- Interfaz consistente en todas las plataformas\n- Animaciones a 60 FPS sin interrupciones\n- Cero problemas de compatibilidad entre iOS y Android\nEsto permite desarrollar interfaces complejas sin preocuparse por diferencias de plataforma.",
       "icon": Icons.lightbulb,
-      "color": Colors.yellow[700]
+      "color": Colors.yellow
     },
     {
       "title": "Comparativa de Experiencia",
@@ -193,9 +228,12 @@ class _HomePageState extends State<HomePage> {
                           color: color.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Center(
-                          child: Text(framework["name"]![0],
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: color)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            framework["image"]!,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 16),

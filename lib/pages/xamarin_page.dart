@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'framework_page.dart';
 
-
 class XamarinPage extends StatelessWidget {
   const XamarinPage({super.key});
 
@@ -31,6 +30,7 @@ class XamarinPage extends StatelessWidget {
       stats: {"80%": "Código reusable", "15k+": "Apps", "1M+": "Devs"},
       justification:
           "Ideal si ya usas el ecosistema .NET y quieres apps móviles multiplataforma.",
+      image: "assets/images/Xamarin.jpg", // ← Agregamos la imagen aquí
     );
   }
 }
